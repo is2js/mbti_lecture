@@ -1,0 +1,11 @@
+#main{
+    background-color: whitesmoke;
+    width: 80%;
+    /*margin: 0 auto; 부트스트랩 mx-auto로 양보*/
+    text-align: center;
+    border-radius: 20px;
+}
+
+p{
+    font-size: 19px;
+}
