@@ -66,3 +66,41 @@
    4. h태그는 h3->h2로 태그만 바꿔준다.
    5. p태그는 main.css에서 `p { }`로 잡아 font-size를 준다
 
+
+
+## qna섹션으로 화면전환하기
+1. qna섹션 감추기
+   1. qna 섹션에 p태그로 아무거나 집어넣어본다.
+   2. 섹션별 css를 만드는 중이므로, `qna.css`를 만들고 html에 link를 걸어준다.
+   3. #qna(id)로 셀렉터를 잡아 `display:none;`으로 걸어준다.
+2. 전환을 위한 `start.js`를 만들고, **js link는 body의 끝부분에 심어준다.**
+   - 어디서든 해도 되는데, body끝나고 하는 것을 권장한다.
+3. start.js으로 버튼에 함수 걸어주기
+   1. const로 #main, #qna 2개의 섹션을 쿼리셀렉터로 잡아준다.
+   2. begin메서드를 만든다.
+      ```js
+      function begin() {
+          main.style.display = "none";
+          qna.style.display = "block";
+      }
+      ```
+   3. 시작버튼에 onclick으로 `"begin()"`을 걸어준다.
+4. 버튼클릭시 화면전환에 애니메이션 적용하기
+   1. `animation.css`를 따로 만들어주고 link를 걸어준다.
+   2. [참고링크](http://www.tcpschool.com/css/css3_transform_animation)
+   3. `@keyframes`를 활용해서 fadeIn, fadeOut 키프레임을 정의한다.
+      1. 시작 투명도0 -> 1, 끝 1 -> 0
+   4. 크롬에서는 @webkit-keyframes를 이용하므로 똑같이 따로 `@-webkit-keyframes`정의해준다.
+5. 애니메이션 적용을 위하여, begin함수에 애니메이션을 적용해준다.
+   1. 일단 테스트하기 위해, 각 섹션 display는 주석처리한다.
+   2. main은 fadeOut 2개를, qna에서는 fadeIn을 style에 적용해주는데, 문자열에 시간도 적어줘야한다.
+   3. main만 있는 상태이므로, fadeOut이 잘되는지 확인한다.
+   4. **fadeIn이 적용될 qna섹션은 display:block이 `fade시간만큼 있다가 작동해야한다`**
+      1. main의 fadeOut도, 애니메이션 실행후 display조작이 일어나도록 한다.
+   5. 시나리오
+      1. main의 fadeout 1초짜리가 실행 중
+      2. 0.45초있다가 qnq가 fadein이 실행된다
+         1. 다시 내부에서 0.45초 있다가 main이 display:none;된다.
+         2. fadeOut 1초에 가까이 사라지게 되면, 깜빡이는 버그가 발생할 수 있다.
+      3. main이none되는 바로 밑에 qna를 block시켜준다.
+
