@@ -104,3 +104,50 @@
          2. fadeOut 1초에 가까이 사라지게 되면, 깜빡이는 버그가 발생할 수 있다.
       3. main이none되는 바로 밑에 qna를 block시켜준다.
 
+## qna섹션 작성하기
+1. data.js에는 qnaList변수에 list내부에 jsobject가 담겨있으며, console에 붙여넣어서 확인할 수 있다.
+   1. 그림
+      ![image-20220821003150215](https://raw.githubusercontent.com/is3js/screenshots/main/image-20220821003150215.png)
+   2. jsobject 특징은 .key으로 찾아갈 수 있다.
+   3. list배열은 [0] 인덱싱으로 접근한다.
+   4. jsobject는 `.a`로 들어가면 또다른 배열이 있으며
+      1. 각 배열에는 답변종류별 answer key + type key의 jsobject가 담겨져있다
+         1. answer의 value로는 답변메세지가 있고
+         2. type의 value에는 알고리즘 작성을 위해 각 동물type이 다시 배열로 선언되어있다.
+   5. 나중에 a 속 type정도만 바꿔서 다른 것으로 수정할 수 있다.
+   
+2. 질문 + 대답list의 data를 미리 가지고 있으므로, `html에는 공간만`만들어주고 `js의 innerHTML`함수를 이용해서 넣어준다.
+   1. qna섹션 안에 `div.qBox`와 `div.answerBox`를 만들어준다.
+
+3. 시작하기를 누를 때, 질문+답변리스트가 떠야하므로
+   1. start.js에서 goNext함수를 만들고
+   2. begin함수에서 바깥 setTimeout 내부에 끝라인에 goNext();를 호출하도록 작성한다.
+   3. goNext()함수에서는, .qBox를 쿼리셀렉터로 찾고, .innerHtml = 에 qnaList[0].q를 가져와 넣어준다.
+      1. `qnaList`의 변수를 쓰려면, body맨끝에  start.js보다 더 위에 data.js를 심어줘야한다.
+      2. 이제 홈페이지에서 시작하기 버튼 -> begin -> goNext -> .qBox innerHtml로 qnaList의 [0]번째 요소 중 key q의 값이 텍스트로 들어가게 된다.
+   4. goNext에 사용되는 qnaList[0]의 0부분을 파라미터화 시키고, begin안에서 호출시 인자로 0을 넣어주게 하자.
+      1. qIdx
+4. qbox에 텍스트를 삽입하는 .innerHtml과는 달리, answerBox에는 `사용자가 선택할 수 있는 btn을 삽입 -> 텍스트는 따로 innerHTML`해줘야한다.
+   1. goNext() 내부에서 qBox는 innerHTML로 텍스트 데이터 바로 삽입한 것과 달리 
+      1. `쿼리셀렉터`로 answerBox를 찾고
+      2. `createElement`로 button태그를 만들어서 -> answerBox에 `.appendChild`를하고
+      3. div(answerBox)에 button(answer)이 appendChild된 상태에서도 `innerHTML`을 할 수 있다.
+      4. `qnaList[qIdx].a[0].answer`로 1개의 답변만 버튼 속 텍스트로 출력해보고 -> ` qnaList[qIdx].a`에 담긴 갯수만큼 반복문을 돌린다.
+         1. 버튼생성 + 버튼 삽입 + 텍스트 삽입의 과정이 반복되어야한다.
+         2. 출력이 잘되면, 반복문내부는 `addAnswer()`함수로 뺀다.
+
+### 답변(버튼)마다 클릭시 기존버튼(비활성화 후) 삭제하기 
+1. 생성된 버튼들에 onclick적용할 메서드 만들기(다음 질문으로 넘어가기)
+   - **create한 btn에 onclick속성을 주는 것이 아니라 `.addEventListener("click", function(){}, false)`를 준다.**
+   - 미리 다 하는게 아니라, `반복문 속 appenChild된 btn 셀럭터 변수`에 달아주면 된다.
+2. 버튼에 add리스너로 달아줄 함수는 어떤 작동을 클릭시, 
+   1. 기존 버튼들을 모두 사라지게 만들어야한다.
+      1. **버튼을 추가만 할거면, 태그로만 추가 가능하지만**
+      2. `삭제를 위한 태그생성 직후 .classList.add('')`로 클래스 asnwerList를 추가하고 appendChild되도록 수정한다.
+      3. addEventListener 내부에서는, `쿼리셀렉터All`로 버튼들이 달고 있는 class `.answerList`를 찾아서 변수로 받고
+      4. 변수children에 등록된 버튼태그들을 길이만큼 반복하면서 
+         1. `.style.display = none;`으로 사라지기 전에 **`.disabled = true`를 먼저 줘서, 다른 버튼들 클릭작동이 안되도록 한다**
+         2. 버튼들 비활성화후 해당 버튼들을 `.style.display = none;`로 사라지게 한다.
+      5. 다 사라지게 했으면 다시 goNext(index)를 1개 늘려서, 다음 q텍스트 + a버튼들이 추가되게 한다.
+         1. goNext(qIdx)는 빈공간인 qBox, answerBox에 qnaList에 있는 i번째 데이터를 텍스트와 태그로 다 박아주는역할 중이므로
+         2. 인덱스만 하나 증가시켜서 이벤트리느서 끝줄에 추가해준다.
