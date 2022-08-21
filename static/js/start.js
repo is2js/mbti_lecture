@@ -1,7 +1,23 @@
 const main = document.querySelector("#main");
 const qna = document.querySelector("#qna");
+const result = document.querySelector("#result");
 const statusBar = document.querySelector(".statusBar");
 const endPoint = qnaList.length;
+
+function goResult() {
+    qna.style.WebkitAnimation = "fadeOut 0.5s";
+    qna.style.animation = "fadeOut 0.5s";
+
+    // qna.style.display = "block";
+    setTimeout(() => {
+        result.style.WebkitAnimation = "fadeIn 0.5s";
+        result.style.animation = "fadeIn 0.5s";
+        setTimeout(() => {
+            qna.style.display = "none";
+            result.style.display = "block";
+        }, 240);
+    }, 240);
+}
 
 function addAnswer(answerBox, qIdx, answerIdx) {
     console.log(answerBox);
@@ -19,6 +35,9 @@ function addAnswer(answerBox, qIdx, answerIdx) {
     answerBtn.innerHTML = qnaList[qIdx].a[answerIdx].answer;
     // [클릭시 버튼들 비활성화 및 기존 버튼들 안보이게] 하는 함수 달아주기
     answerBtn.addEventListener("click", function () {
+        //리스너에는 1번 클릭시 disabled되게 만들어서, 중복클릭방지
+        this.setAttribute("disabled", "disabled");
+
         let children = document.querySelectorAll('.answerList');
         console.log(children); // NodeList ->  js배열Array가 아니라면,향상된for문 x -> .length로 도는 index반복문
         for (let i = 0; i < children.length; i++) {
@@ -37,6 +56,13 @@ function addAnswer(answerBox, qIdx, answerIdx) {
 }
 
 function goNext(qIdx) {
+    // if
+    if (qIdx === endPoint) {
+        console.log("리절트로 갑니다.")
+        goResult();
+        return;
+    }
+
     //statusbar에 qIdx를 이용한 진행상황 알리기
     statusBar.style.width = (100 / endPoint) * (qIdx) + "%";
 
@@ -59,18 +85,24 @@ function goNext(qIdx) {
 }
 
 function begin() {
+
     // main.style.display = "none";
-    main.style.WebkitAnimation = "fadeOut 1s";
-    main.style.animation = "fadeOut 1s";
+    main.style.WebkitAnimation = "fadeOut 0.5s";
+    main.style.animation = "fadeOut 0.5s";
+
+
     // qna.style.display = "block";
     setTimeout(() => {
-        qna.style.WebkitAnimation = "fadeIn 1s";
-        qna.style.animation = "fadeIn 1s";
+        qna.style.WebkitAnimation = "fadeIn 0.5s";
+        qna.style.animation = "fadeIn 0.5s";
         setTimeout(() => {
             main.style.display = "none";
             qna.style.display = "block";
-        }, 450)
+        }, 240);
         goNext(0);
-    }, 450)
+    }, 240)
+
+    // 리스너는 맨위에, 일반함수에는 맨 밑에
+    this.setAttribute("disabled", "disabled");//중복클릭 방지
 }
 

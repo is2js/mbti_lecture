@@ -36,7 +36,7 @@
       2. `div.col-6.mx-auto` 안으로 img태그를 옮긴다
    4. 내부 text들/태그들 가운데 정렬은 바깥의 #main 섹션에 `text-align: center;`를 주면 된다.
    5. #main section의 곡선도 20px정도 준다.
-4. section자체를 외부containter와 간격을 주기 위해 `mt-5`으로 마진탑을 줘서 띄운다.
+4. section자체를 외부containter와 간격을 주기 위해 `mx-5`으로 마진탑을 줘서 띄운다.
    1. **h3도 마찬가지로 `mt-5`를 주면, 안띄워진다.**
    2. section과 그 내부h3는 `mt-x`로 준 마진은 서로 공유해서 써서, 겹치게 되어 내부요소는 안띄워진다.
    3. **테스트 해보니 바깥section과 `내부 첫 태그`의 마진은 서로 공간을 공유한다.**
@@ -198,3 +198,21 @@
    2. goNext(qIdx)메서드 상단에 `statusbar.style.width =`에  (100 / 질문갯수) * (qIndx + 1) + `"%";`를 넣어주면 된다.
 4. 그라데이션 효과(칼라질라) 주기
    1. 골라서 background-color에 붙여주기
+
+
+## 마지막 질문 클릭시 Result화면으로 넘어가기
+1. goNext에 넘어오는 index가 length-1을 넘어 length인 endPoint와 같을 때, goResult() 함수를 호출하도록 한다.
+2. result섹션의 내용을 메인섹션 내용을 복사해서 수정한다.
+   1. 결과로 나올 이미지는 태그생성후 심어주는 방식으로 동적으로 들어가야한다.
+      1. 이미지바깥의 div태그에는 동적 appendChild를 위한 id를 배정해준다 #resultImg
+      2. 안쪽의 고정img태그는 삭제한다
+   2. 결과데이터인 infoList에 name, desc 정보가 있는데, 이것들도 동적으로 추가하기 위해
+      1. 제목과 설명이 들어갈 빈 div공간을 만들어둔다.
+         1. `.resultName`, `.resultDesc`
+   3. 버튼은 공유하기로 변경하고, style용 class와 onclick 속성은 지워준다.
+3. goResult()를 작성하기 위해
+   1. 일단 안보이던 result섹션을 보이게 만들어야하니, 전역변수로 쿼리셀렉터로 잡아놓는다.
+   2. begin()에서 main을 끄고, qna섹션을 켰던 것처럼, 내용을 복사해서 수정해준다
+      1. goNext()부분은 빼고 가져와서 수정하낟.
+4. `result.css`를 만들고 link시킨 뒤, 처음에는 #result의 result섹션이 none상태로 안보이게 한다.
+5. 
