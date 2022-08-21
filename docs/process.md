@@ -151,3 +151,38 @@
       5. 다 사라지게 했으면 다시 goNext(index)를 1개 늘려서, 다음 q텍스트 + a버튼들이 추가되게 한다.
          1. goNext(qIdx)는 빈공간인 qBox, answerBox에 qnaList에 있는 i번째 데이터를 텍스트와 태그로 다 박아주는역할 중이므로
          2. 인덱스만 하나 증가시켜서 이벤트리느서 끝줄에 추가해준다.
+
+
+## qna 꾸미기
+1. main은 #main 섹션자체를 꾸몄지만,
+   - qna는 섹션이 아닌 qna 내부에 `.qBox`를 main 섹션처럼 꾸며야한다.
+2. `.qBox`의 배경 + 가운데정렬 + 곡선은 css로 꾸민다.
+   - 이후 `margin, padding` 등 bootstrap의 class로 처리한다
+     - 제일 바깥박스인 qBox에서 my-5, py-3 정도 더 바깥 + 내부요소 여백이 설정된다.
+
+### append되는 button들 꾸미기
+1. append되는 btn태그를 생성할 때, 삭제 등을 `id 혹은 class`를 주므로,해당 `class`를 가져와 css에서 정의해주면 된다.
+   - `asnwerList`를 .classList.add()로 더해줫으니 이것을 qna.css에서 입혀준다.
+   - 배경 + 곡선 정도만 준다.
+   1. 버튼을 1줄에 1개씩만 보여주게 하기 위해서는 `display:block;` 속성을 주면 된다.
+   2. `width:100%`을 주면, 꽉 채우게 된다.
+   3. `border: 0;`을 주면 버튼도 곡선이 사라진다.
+2. btn의 `마진 패딩은 class로` 줘야하므로, appendChild하는 부부네서 classList.add에서 부트스트랩 class로 더해주자.
+3. 클릭가능한 btn들은 css로 `:hover, :focus`로 배경 + 글자색의 변화를 주자
+4. width를 80%로 조정하면 -> 왼쪽으로 치우치는데 -> `class로 mx-auto`를 주면 된다.
+   1. .qBox와 .answerList 둘다 `css에는 width: 80%;` + `html class/ js appendChild class`에  `mx-atuo`를 추가한다
+
+### button에도 애니메이션 효과주기
+1. 기존에는 시작하기 버튼 누를시, 사라지는 main, 나타나는 qna섹션에 대해`쿼리셀럭터 -> main.style.animation` 형태로 `js에서 지정`해줬다.
+2. 쿼리셀럭터로 잡는게 아니라 `create -> class들 add`해주는 상황이므로, 마찬가지 `애니메이션 클래스를 add로 추가`해줘야한다.
+   1. `animation.css`의 하단에 `animation: fadeIn`이 적용되는 `.fadeIn` css셀렉터를 정의해주고, 
+   2. appendChild되는 버튼마다 classList.add에서 다시 추가해준다.
+3. **반면에 fadeOut이 적용되는 순간은, 클릭이벤트리스너 내부이므로, 그때 적용되도록 `children[i].style.animation = "fadeOut 1s";`형식으로 이미 셀렉터로 잡아놓은 상황에서 처리되게 한다**
+4. 이럴 경우, 1초동안 display:none;이 되면 안된다.
+   1. 메인에서 썼던 것처럼, `클릭시`버튼은 disabled=true;이후에 fadeOut을 1초동안 지속 시킨다.
+   2. `setTimeout(() => {}, 950 )`로 거의 1초가 되기 직전에, style.display = 'none';이 작동하도록
+      1. 전체 반복문을 한번 더 돌린다.
+   3. 이 때, goNext()도 1초가 미뤄지니, setTimeout내부로 옮긴다.
+   4. 너무 느리니, `.fadeIn, .fadeOut  0.5초` + `setTimeout은 450으로` 줄인다.
+5. fadeIn은 혹시나해서 만들어둔 것. 사용은 안한다.
+   
