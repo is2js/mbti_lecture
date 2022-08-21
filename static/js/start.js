@@ -1,5 +1,7 @@
 const main = document.querySelector("#main");
 const qna = document.querySelector("#qna");
+const statusBar = document.querySelector(".statusBar");
+const endPoint = qnaList.length;
 
 function addAnswer(answerBox, qIdx, answerIdx) {
     console.log(answerBox);
@@ -35,6 +37,9 @@ function addAnswer(answerBox, qIdx, answerIdx) {
 }
 
 function goNext(qIdx) {
+    //statusbar에 qIdx를 이용한 진행상황 알리기
+    statusBar.style.width = (100 / endPoint) * (qIdx) + "%";
+
     //qBox
     let qBox = document.querySelector('.qBox');
     qBox.innerHTML = qnaList[qIdx].q
@@ -49,6 +54,7 @@ function goNext(qIdx) {
     for (let answerIdx in qnaList[qIdx].a) {
         addAnswer(answerBox, qIdx, answerIdx);
     }
+
 
 }
 

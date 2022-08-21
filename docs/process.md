@@ -186,3 +186,15 @@
    4. 너무 느리니, `.fadeIn, .fadeOut  0.5초` + `setTimeout은 450으로` 줄인다.
 5. fadeIn은 혹시나해서 만들어둔 것. 사용은 안한다.
    
+
+## 진행 상태바 만들기
+1. `.status>.statusBar` 2개의 공간을 qna섹션에 만든다.
+2. qna.css에서
+   1. .status는 80% 너비 + `20px고정 높이` + 배경 + 곡선을 준다.
+      1. status를 가운데 정렬하기 위해 class로 mx-auto + mt-5정도를 준다.
+   2. .statusBar는 바깥공간의 고정높이를 100%채우도록 `height:100%;` + 배경 + 곡선을 준다
+3. 이제 start.js 전역변수로 
+   1. .statusBar 쿼리셀렉터 잡기 + 질문 총 갯수를 qnaList.length로 전역변수로 잡기
+   2. goNext(qIdx)메서드 상단에 `statusbar.style.width =`에  (100 / 질문갯수) * (qIndx + 1) + `"%";`를 넣어주면 된다.
+4. 그라데이션 효과(칼라질라) 주기
+   1. 골라서 background-color에 붙여주기
