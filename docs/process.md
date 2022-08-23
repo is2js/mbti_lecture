@@ -215,4 +215,30 @@
    2. begin()에서 main을 끄고, qna섹션을 켰던 것처럼, 내용을 복사해서 수정해준다
       1. goNext()부분은 빼고 가져와서 수정하낟.
 4. `result.css`를 만들고 link시킨 뒤, 처음에는 #result의 result섹션이 none상태로 안보이게 한다.
-5. 
+
+
+## Result에 결과 계산하기
+1. 사용자가 클릭한 버튼이 어떤 버튼인지 기록하기 위해, 상태배열을 만든다.
+2. addAnswer()메서드 내부 `answerBtn.addEventListener("click", `에서 클릭을 감지하므로 이 내부에서 코드를 달아줘야한다.
+   2. 몇번째 질문에 대한 몇번째 대답인지도 달아야한다.
+      1. 몇번째 질문 -> select의 index에 매핑된다.
+      2. 몇번재 대답 -> qnaList[qIdx].a -> for let answerIdx 이므로, `answerIdx`를 이용하면 된다.
+      3. `select[qIdx] = answerIdx;` 몇번째 질문에 몇번째 답변을 했는지 담기게 된다.
+3. select에 재대로 다 담겼는지 `질문이 다끝나고 호출되는 goResult`내에서, select를 콘솔로 찍어본다.
+
+### result에서 select에 담긴 정보로 결과 연산하기
+1. calcResult() 함수를 만든다.
+   1. qnaList의 답변마다, type정보 배열로 들어가 있다.
+   2. type들을 다 모아서, 가장 많이 선택된 type 동물을 뽑아낸다
+      1. 카운을 할 type종류별 카운트배열을 만든다.
+         1. name + count(value) + key(0~11)
+      2. index로 묶여있는 `qnaList[i].a`에서 뽑을 index -> `select[i]`를 연결
+      3. 선택된 a를 선택한 후, 그 내부의 type필드를 돌면서, 카운팅해준다.
+   3. 이제, 카운팅배열인 pointArray를 .sort()하되, value(count)기준으로 역순 정렬하고
+      1. 같더라도, 역순 정렬된 것의 첫번째 것만 추출할 것이다.
+      2. sort함수는, 음수반환시 a(앞에것)가 양수반환시 b가 0반환시 a가 나온다.
+         1. 큰 것을 반환해야하므로 음수반환 -> 앞에것.기준필드의 값이 더 큰 조건식을 넣어주면 된다.
+            1. ex> a.value > b.value return -1,
+   4. 정렬된 배열에서는, value(count)로 정렬되었으니, key값을 이용하면 매핑된 동물들의 그림을 추출할 수 있다?
+
+   
