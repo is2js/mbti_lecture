@@ -66,14 +66,14 @@ function addAnswer(answerBox, qIdx, answerIdx) {
     answerBtn.innerHTML = qnaList[qIdx].a[answerIdx].answer;
     // [클릭시 버튼들 비활성화 및 기존 버튼들 안보이게] 하는 함수 달아주기
     answerBtn.addEventListener("click", function () {
-        //리스너에는 1번 클릭시 disabled되게 만들어서, 중복클릭방지
-        this.setAttribute("disabled", "disabled");
-
         let children = document.querySelectorAll('.answerList');
+        //리스너에는 1번 클릭시 disabled되게 만들어서, 중복클릭방지 -> 나머지들도 다 중복방지 시켜야한다.
+        this.setAttribute("disabled", "disabled");
+        // -> fade아웃하기 전에 중복방지부터 다 적용
+
         // console.log(children); // NodeList ->  js배열Array가 아니라면,향상된for문 x -> .length로 도는 index반복문
         for (let i = 0; i < children.length; i++) {
-            children[i].disable = true;
-            // children[i].style.display = 'none';
+            children[i].setAttribute("disabled", "disabled");
             children[i].style.WebkitAnimation = "fadeOut 0.5s";
             children[i].style.animation = "fadeOut 0.5s";
         }
