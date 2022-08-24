@@ -385,6 +385,10 @@
 
 - **index.html이 root에 있어야한다**
 - `Sites`탭으로가서 탐색기 프로젝터 폴더 자체를 `deploy manually`에 드래그앤드랍해주면 된다. 
+    - 나는 github repo를 연결해서 배포하게 했다.
 
 - 그다음에 setting 중 `Domains`에 들어가서
     - Custom domain에서 Option -> Edit site name에 사이트이름을 변경한다
+
+### 배포된 주소를 다시 meta op:url에 넣어주기 with https
+
