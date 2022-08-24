@@ -316,5 +316,75 @@
     1. 버튼에 kakao라는 class를 추가하고, result.css에서 꾸민다
     2. 컬러white 백그라운드는 카톡배경컬러인 #FEE500을 준다
     3. 버튼크기는 패팅으로 늘리므로 class에 px-4 py-2를 추가한다
-    4. 
+    4. **버튼 특유의 감성을 없애기 위해 border:0 +곡선을 준다**
+    5. 글자크기를 조정한다
+    6. **hover와 focus도 복사해서 글자색+배경을 반전시켜준다**
 
+
+
+
+
+## meta태그 보충하고 배포하기
+
+### meta태그 보충하고 배포하기
+
+
+
+1. title수정
+
+2. meta태그 name별 추가하기
+
+    1. author
+    2. keywords
+    3. description
+
+3. **공유를 위한 meta태그 propery="og:" 시리즈들 추가하기**
+
+    1. url
+    2. title
+    3. type
+    4. image
+    5. description
+
+    ```
+    <meta name="author" content="JSCoding">
+    <meta name="keywords" content="십이간지 연애유형">
+    <meta name="description" content="십이간지 연애유형">
+    <!-- SNS share   -->
+    <meta property="og:url" content=""/>
+    <meta property="og:title" content=""/>
+    <meta property="og:type" content="webstie"/>
+    <meta property="og:image" content="/static/image/share.png"/>
+    <meta property="og:description" content="십이간지로 알아보는 연애유형"/>
+    
+    <title>십이간지 연애유형</title>
+    ```
+
+    ![image-20220824192724323](https://raw.githubusercontent.com/is2js/screenshots/main/image-20220824192724323.png)
+
+
+
+### favicon
+
+- [사용사이트](https://icon-icons.com/)
+
+- 다른 사이트
+
+    - 북마크 활용
+
+- ico확장자로 image폴더에 다운
+
+    - link:favicon
+    - link:touch for apple로 2개를 걸어준다
+
+    ![image-20220824193202416](https://raw.githubusercontent.com/is2js/screenshots/main/image-20220824193202416.png)
+
+
+
+### netify로 배포
+
+- **index.html이 root에 있어야한다**
+- `Sites`탭으로가서 탐색기 프로젝터 폴더 자체를 `deploy manually`에 드래그앤드랍해주면 된다. 
+
+- 그다음에 setting 중 `Domains`에 들어가서
+    - Custom domain에서 Option -> Edit site name에 사이트이름을 변경한다
