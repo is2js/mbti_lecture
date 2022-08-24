@@ -1,3 +1,7 @@
+function moveHome() {
+    location.href = '/index.html';
+}
+
 function setResult(data) {
     //resultName
     let resultName = document.querySelector('.resultName');

@@ -464,3 +464,21 @@
    - **#shareResult로 id변경후, `result.css`에서는 display:none;제외 복붙해서 적용해준다**
 
    
+
+
+
+#### 결과공유html with queryString은, 공유하기버튼이 아닌 나도 참여하기 버튼으로 변경
+
+1. `shareResult.html`의 공유하기버튼의 꾸미기용 kakao 클래스 대신 꾸미기용 goHome클래스로 교체하고
+
+2. result.css에서 .goHome으로 버튼을 꾸민다.
+
+   1. kakao 클래스를 복붙해서 색깔만 변경한다
+
+3. **onclick을 moveHome()으로 걸어준 뒤, `shareResult.css`에 `window.location.href = /index.html`로 변경해준다**
+
+   - local에서는 url/index.html로 이동되지만, liveserver특성상 다르게 주소가 잡히는 것 같다
+
+4. **확인은 `shareResult.html/type= ?`에 result type 숫자를 넣어서 확인한다**
+
+   
