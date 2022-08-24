@@ -5,6 +5,7 @@ const statusBar = document.querySelector(".statusBar");
 const endPoint = qnaList.length;
 // const select = [];
 const select = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+const answerList = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 
 function calcResult() {
@@ -31,6 +32,19 @@ function setResult(type) {
     //resultDesc
     let resultDesc = document.querySelector('.resultDesc');
     resultDesc.innerHTML = infoList[type].desc;
+
+    //answerGroup
+    let answerGroupUl = document.querySelector(".answerGroup");
+    let titleLi = document.createElement("li");
+    titleLi.innerHTML = "선택 과정을 보여줍니다. (공유화면에는 보이지 않아요)"
+    answerGroupUl.appendChild(titleLi);
+    for (let qIdx = 0; qIdx < answerList.length; qIdx++) {
+        let tempLi = document.createElement("li");
+        let qText = qnaList[qIdx].q;
+        let answerText = qnaList[qIdx].a[answerList[qIdx]].answer;
+        tempLi.innerHTML = qText + " -> " + answerText;
+        answerGroupUl.appendChild(tempLi);
+    }
 }
 
 function goResult() {
@@ -66,6 +80,15 @@ function addAnswer(answerBox, qIdx, answerIdx) {
     answerBtn.innerHTML = qnaList[qIdx].a[answerIdx].answer;
     // [클릭시 버튼들 비활성화 및 기존 버튼들 안보이게] 하는 함수 달아주기
     answerBtn.addEventListener("click", function () {
+        // 대답을 select배열에 몇번째 대답인지 저장한다.
+        // select[qIdx] = answerIdx;
+        let type = qnaList[qIdx].a[answerIdx].type;
+        for (let i = 0; i < type.length; i++) {
+            select[type[i]] += 1;
+        }
+        //answerList배열에, 질문을 index로 간주하여, 선택한 답지가 몇번째인지 저장한다
+        answerList[qIdx] = answerIdx;
+
         let children = document.querySelectorAll('.answerList');
         //리스너에는 1번 클릭시 disabled되게 만들어서, 중복클릭방지 -> 나머지들도 다 중복방지 시켜야한다.
         this.setAttribute("disabled", "disabled");
@@ -78,12 +101,6 @@ function addAnswer(answerBox, qIdx, answerIdx) {
             children[i].style.animation = "fadeOut 0.5s";
         }
         setTimeout(() => {
-            // 대답을 select배열에 몇번째 대답인지 저장한다.
-            // select[qIdx] = answerIdx;
-            let type = qnaList[qIdx].a[answerIdx].type;
-            for (let i = 0; i < type.length; i++) {
-                select[type[i]] += 1;
-            }
 
             for (let i = 0; i < children.length; i++) {
                 children[i].style.display = 'none';

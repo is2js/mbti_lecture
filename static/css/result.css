@@ -16,10 +16,10 @@
 }
 
 .resultName {
-    font-size:26px;
+    font-size:22px;
 }
 .resultDesc {
-    font-size: 19px;
+    font-size: 15px;
 }
 
 .kakao {
@@ -52,4 +52,36 @@
 .goHome:hover, .goHome:focus {
     color: #3A1D1D;
     background-color: #FEE500;
+}
+
+ul.answerGroup {
+    list-style: none;
+}
+
+.answerGroup li {
+    /*line-style: none;*/
+    background: whitesmoke;
+    border-top: 1px solid #ffffff;
+
+    color: #5e5448;
+    font-size: 15px;
+
+    padding: 1px 20px;
+}
+
+.answerGroup li:first-child {
+    background: #5d5b57;
+    color: #ffffff;
+
+    border-radius: 10px 10px 0 0;
+    border: none;
+}
+
+.answerGroup li:hover {
+    background: #5d5b57;
+    color: #ffffff;
+}
+
+.answerGroup li:last-child {
+    border-radius: 0 0 10px 10px;
 }

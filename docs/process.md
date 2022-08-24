@@ -397,7 +397,7 @@
 
 
 
-## 카톡 공유 구현하기
+## 카톡 공유 및 공유를 위한 결과페이지 따로 구현
 
 ### sdk부터 공유버튼 메서드 구현까지
 
@@ -487,3 +487,28 @@
 4. **확인은 `shareResult.html/type= ?`에 result type 숫자를 넣어서 확인한다**
 
    
+
+
+
+## 질문별 선택번호도 기록해놓고 보여주기
+
+- 질문별  type카운팅배열(select)에 기록하는 것처럼 **질문번호를 index에 매핑한 배열을 만들고, 선택한 번호를 배열에 기록해놓는다.**
+
+1. 전역변수로 12개의 answerList배열을 만든다.
+
+2. 카운팅배열은 type과 index매핑인데, 답변저장은 문제번호와 index매핑이다.
+
+   1.  `answerList[qIdx] = answerIdx;`로 **클릭 이벤트 리스너 안에다가 선언한다**
+
+      ![image-20220825023636191](https://raw.githubusercontent.com/is3js/screenshots/main/image-20220825023636191.png)
+
+   2. **일단, 결과페이지를 뿌려주는 setREsult에서 콘솔로 뿌려본다**
+
+      ![image-20220825023646720](https://raw.githubusercontent.com/is3js/screenshots/main/image-20220825023646720.png)
+
+3. **이제 #result section에 빈공간을 마련하고, setResult에서, 매핑된 질문데이터로 뽑아서 출력해보자.**
+   1. 빈공간으로 ul태그를 만들어놓고
+      - `ul.answerGroup`
+   2. setResult에서 동적으로 li태그를 appendChild하면 된다.
+      - div + li조합이면, li마다 line-style: none;을
+      - ul + li조합이면, ul에 line-sylte: none;을 주면 된다.
