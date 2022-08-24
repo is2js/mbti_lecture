@@ -28,7 +28,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Sunflower:wght@700&display=swap"
           rel="stylesheet">
-    <!--  결과 type을 url에서 받기  -->
+    <!--  결과 type을 url에서 받아 뿌리기  -->
+    <script src="/static/js/shareResult.js"></script>
 </head>
 <body>
 <section id="shareResult" class="mx-auto my-5 py-5 px-3">
@@ -45,39 +46,7 @@
 </section>
 <script src="/static/js/data.js"></script>
 <script>
-    function setResult2(data) {
-        //resultName
-        let resultName = document.querySelector('.resultName');
-        resultName.innerHTML = infoList[data.type].name;
 
-        //resultImg
-        let resultImg = document.querySelector('#resultImg');
-        let img = document.createElement('img');
-        resultImg.appendChild(img);
-
-        img.src = '/static/images/image-' + data.type + '.png';
-        img.alt = data.type;
-
-        // + 이미지태그 css
-        img.classList.add('img-fluid')
-
-        //resultDesc
-        let resultDesc = document.querySelector('.resultDesc');
-        resultDesc.innerHTML = infoList[data.type].desc;
-    }
-
-    window.onload = function () {
-        var url = document.location.href,
-            params = url.split('?')[1].split('&'),
-            data = {}, tmp;
-        for (var i = 0, l = params.length; i < l; i++) {
-            tmp = params[i].split('=');
-            data[tmp[0]] = tmp[1];
-        }
-
-        // console.log(data.type);
-        setResult2(data)
-    }
 </script>
 
 <script>

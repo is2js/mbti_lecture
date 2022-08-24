@@ -6,18 +6,15 @@ function shareKakao() {
 
   const shareTitle = '십이간지 연애유형 결과'
   const shareDesc = infoList[typeInAlt].name;
-  const shareImageURL = url + 'images/image-' + typeInAlt + '.png';
+  const shareImageURL = url + 'static/images/image-' + typeInAlt + '.png';
   const shareURL = url + 'shareResult.html?type=' + encodeURIComponent(typeInAlt);
-
-
 
   Kakao.Share.sendDefault({
     objectType: 'feed',
     content: {
       title: shareTitle,
       description: shareDesc,
-      imageUrl:
-        shareImageURL,
+      imageUrl: shareImageURL,
       link: {
         mobileWebUrl: shareURL,
         webUrl: shareURL
@@ -26,17 +23,10 @@ function shareKakao() {
 
     buttons: [
       {
-        title: '공유자 결과 확인~!',
+        title: '결과 확인후 참여',
         link: {
           mobileWebUrl: shareURL,
           webUrl: shareURL
-        },
-      },
-      {
-        title: '나도 참여~!',
-        link: {
-          mobileWebUrl: url,
-          webUrl: url
         },
       },
     ]
