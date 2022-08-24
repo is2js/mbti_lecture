@@ -284,3 +284,37 @@
 
 ## calcResult로 받아낸 최다 type의 번호(index)를 이용하여 Result꾸미기
 
+1. goResult()로 화면 넘어가고 난 마지막에 calcResult(type번호)를 인자로 받는 setResult() 함수 구현하기
+
+    ![image-20220824182633741](https://raw.githubusercontent.com/is2js/screenshots/main/image-20220824182633741.png)
+
+2. result섹션에 존재하는 빈공간들을 셀렉터로 잡아놓기
+
+    ![image-20220824182744236](https://raw.githubusercontent.com/is2js/screenshots/main/image-20220824182744236.png)
+
+3. infoList 배열은, 십이간지 (type)순서대로 배열되어있으니 결과type을 이용해서 데이터를 가져와 집어넣는다.
+
+    1. 텍스트만 innerHTML
+    2. 이미지태그 만들어서 div에 삽입
+        1. src속성 삽입: 상대경로 + 동적파일명 를 입력한 imgURL 만들어서 삽입
+            - 이미지 파일명또한 index(type)으로 매핑되어있어야한다?!
+        2. alt속성 삽입
+            - alt는 공유하기에 사용되어서 만들어 넣어주는 것
+
+    
+
+4. **main섹션처럼, img태그에 css더해주기**
+    1. img태그 자체에는 바깥div에 따라가도록 `img-fluid` 속성을 더해준다
+        - 부트스트랩 css라서 class로 넣어준다.
+5. 그외 main.css에 있는 속성을 그대로 복사해서 result섹션에 적용하게 한다
+    1. display:none;은 유지하고 다른 것들을 복붙한다
+    2. **main섹션 html에 class로 준 부트스트랩 속성도 복붙해준다**
+    3. .ResultDesc를 css에서 폰트크기를 늘려준다.
+    4. .resultImg에 my-3
+    5. button에 mt-3
+6. **공유하기 버튼 꾸며주기**
+    1. 버튼에 kakao라는 class를 추가하고, result.css에서 꾸민다
+    2. 컬러white 백그라운드는 카톡배경컬러인 #FEE500을 준다
+    3. 버튼크기는 패팅으로 늘리므로 class에 px-4 py-2를 추가한다
+    4. 
+

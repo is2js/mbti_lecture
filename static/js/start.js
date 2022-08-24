@@ -8,52 +8,29 @@ const select = [0,0,0,0,0,0,0,0,0,0,0,0];
 
 
 function calcResult() {
-    // 1. 카운팅을 위한 종류별 name+ default count value 0 + key값배정하여, 배열을 만든다.
-    // let pointArray = [
-    //     {name: 'mouse', value: 0, key: 0},
-    //     {name: 'cow', value: 0, key: 1},
-    //     {name: 'tiger', value: 0, key: 2},
-    //     {name: 'rabbit', value: 0, key: 3},
-    //     {name: 'dragon', value: 0, key: 4},
-    //     {name: 'snake', value: 0, key: 5},
-    //     {name: 'horse', value: 0, key: 6},
-    //     {name: 'sheep', value: 0, key: 7},
-    //     {name: 'monkey', value: 0, key: 8},
-    //     {name: 'chick', value: 0, key: 9},
-    //     {name: 'dog', value: 0, key: 10},
-    //     {name: 'pig', value: 0, key: 11},
-    // ];
-    //
-    // // 2. 인덱스로 돌아야지 암죽적으로 묵인, 카운팅배열 + 다른 배열들을 연결할 수 있다.
-    // for (let i = 0; i < endPoint; i++) {
-    //     // i번째 질문에 대해, 답변.a 중 선택된 답변 select[i]의 type
-    //     let typeArray = qnaList[i].a[select[i]].type;
-    //     // type배열에 잇는 동물들을 돌면서, -> pointArray를 돌며 같은게 있을 때만 카운팅해준다.
-    //     for (const animal of typeArray) {
-    //         for (let pointArrayElement of pointArray) {
-    //             if (animal === pointArrayElement.name) {
-    //                 pointArrayElement.value += 1;
-    //             }
-    //         }
-    //     }
-    // }
-    // console.log(pointArray);
-
-
-    // // 3. value 기준으로 정렬
-    // let resultArray = pointArray.sort(function (a, b) {
-    //     if(a.value > b.value){ //(2) 음수반환의 조건문에서는, [앞에것 반환이 참이 되도록 만든다]
-    //         return -1; // (1) 음수를 반환하면 앞에껏이 반환되는 구조이다.
-    //     }
-    //     if(a.value < b.value){
-    //         return 1; // 양수반환 -> 뒤에것반환 -> 뒤에것반환이 되도록하는 참인 문장을 만들어 조건식에 대입
-    //     }
-    //     return 0;
-    // });
-    // console.log(resultArray);
-
     let result = select.indexOf(Math.max(...select));
     return result;
+}
+
+function setResult(type) {
+    //resultName
+    let resultName = document.querySelector('.resultName');
+    resultName.innerHTML = infoList[type].name;
+
+    //resultImg
+    let resultImg = document.querySelector('#resultImg');
+    let img = document.createElement('img');
+    resultImg.appendChild(img);
+
+    img.src = '/static/images/image-' + type + '.png';
+    img.alt = type;
+
+    // + 이미지태그 css
+    img.classList.add('img-fluid')
+
+    //resultDesc
+    let resultDesc = document.querySelector('.resultDesc');
+    resultDesc.innerHTML = infoList[type].desc;
 }
 
 function goResult() {
@@ -70,9 +47,7 @@ function goResult() {
         }, 240);
     }, 240);
 
-    //질문에 대한 답변번호들이 제대로 찍혔는지 확인한다.
-    // console.log(select);
-    calcResult()
+    setResult(calcResult())
 }
 
 function addAnswer(answerBox, qIdx, answerIdx) {
