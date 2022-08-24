@@ -3,51 +3,57 @@ const qna = document.querySelector("#qna");
 const result = document.querySelector("#result");
 const statusBar = document.querySelector(".statusBar");
 const endPoint = qnaList.length;
-const select = [];
+// const select = [];
+const select = [0,0,0,0,0,0,0,0,0,0,0,0];
 
 
 function calcResult() {
     // 1. 카운팅을 위한 종류별 name+ default count value 0 + key값배정하여, 배열을 만든다.
-    let pointArray = [
-        {name: 'mouse', value: 0, key: 0},
-        {name: 'cow', value: 0, key: 1},
-        {name: 'tiger', value: 0, key: 2},
-        {name: 'rabbit', value: 0, key: 3},
-        {name: 'dragon', value: 0, key: 4},
-        {name: 'snake', value: 0, key: 5},
-        {name: 'horse', value: 0, key: 6},
-        {name: 'sheep', value: 0, key: 7},
-        {name: 'monkey', value: 0, key: 8},
-        {name: 'chick', value: 0, key: 9},
-        {name: 'dog', value: 0, key: 10},
-        {name: 'pig', value: 0, key: 11},
-    ];
-
-    // 2. 인덱스로 돌아야지 암죽적으로 묵인, 카운팅배열 + 다른 배열들을 연결할 수 있다.
-    for (let i = 0; i < endPoint; i++) {
-        // i번째 질문에 대해, 답변.a 중 선택된 답변 select[i]의 type
-        let typeArray = qnaList[i].a[select[i]].type;
-        // type배열에 잇는 동물들을 돌면서, -> pointArray를 돌며 같은게 있을 때만 카운팅해준다.
-        for (const animal of typeArray) {
-            for (let pointArrayElement of pointArray) {
-                if (animal === pointArrayElement.name) {
-                    pointArrayElement.value += 1;
-                }
-            }
-        }
-    }
+    // let pointArray = [
+    //     {name: 'mouse', value: 0, key: 0},
+    //     {name: 'cow', value: 0, key: 1},
+    //     {name: 'tiger', value: 0, key: 2},
+    //     {name: 'rabbit', value: 0, key: 3},
+    //     {name: 'dragon', value: 0, key: 4},
+    //     {name: 'snake', value: 0, key: 5},
+    //     {name: 'horse', value: 0, key: 6},
+    //     {name: 'sheep', value: 0, key: 7},
+    //     {name: 'monkey', value: 0, key: 8},
+    //     {name: 'chick', value: 0, key: 9},
+    //     {name: 'dog', value: 0, key: 10},
+    //     {name: 'pig', value: 0, key: 11},
+    // ];
+    //
+    // // 2. 인덱스로 돌아야지 암죽적으로 묵인, 카운팅배열 + 다른 배열들을 연결할 수 있다.
+    // for (let i = 0; i < endPoint; i++) {
+    //     // i번째 질문에 대해, 답변.a 중 선택된 답변 select[i]의 type
+    //     let typeArray = qnaList[i].a[select[i]].type;
+    //     // type배열에 잇는 동물들을 돌면서, -> pointArray를 돌며 같은게 있을 때만 카운팅해준다.
+    //     for (const animal of typeArray) {
+    //         for (let pointArrayElement of pointArray) {
+    //             if (animal === pointArrayElement.name) {
+    //                 pointArrayElement.value += 1;
+    //             }
+    //         }
+    //     }
+    // }
     // console.log(pointArray);
-    // 3. value 기준으로 정렬
-    let resultArray = pointArray.sort(function (a, b) {
-        if(a.value > b.value){ //(2) 음수반환의 조건문에서는, [앞에것 반환이 참이 되도록 만든다]
-            return -1; // (1) 음수를 반환하면 앞에껏이 반환되는 구조이다.
-        }
-        if(a.value < b.value){
-            return 1; // 양수반환 -> 뒤에것반환 -> 뒤에것반환이 되도록하는 참인 문장을 만들어 조건식에 대입
-        }
-        return 0;
-    });
-    console.log(resultArray);
+
+
+    // // 3. value 기준으로 정렬
+    // let resultArray = pointArray.sort(function (a, b) {
+    //     if(a.value > b.value){ //(2) 음수반환의 조건문에서는, [앞에것 반환이 참이 되도록 만든다]
+    //         return -1; // (1) 음수를 반환하면 앞에껏이 반환되는 구조이다.
+    //     }
+    //     if(a.value < b.value){
+    //         return 1; // 양수반환 -> 뒤에것반환 -> 뒤에것반환이 되도록하는 참인 문장을 만들어 조건식에 대입
+    //     }
+    //     return 0;
+    // });
+    // console.log(resultArray);
+
+    let result = select.indexOf(Math.max(...select));
+    return result;
 }
 
 function goResult() {
@@ -98,7 +104,11 @@ function addAnswer(answerBox, qIdx, answerIdx) {
         }
         setTimeout(() => {
             // 대답을 select배열에 몇번째 대답인지 저장한다.
-            select[qIdx] = answerIdx;
+            // select[qIdx] = answerIdx;
+            let type = qnaList[qIdx].a[answerIdx].type;
+            for (let i = 0; i < type.length; i++) {
+                select[type[i]] += 1;
+            }
 
             for (let i = 0; i < children.length; i++) {
                 children[i].style.display = 'none';

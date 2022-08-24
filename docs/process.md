@@ -1,5 +1,6 @@
 ## 페이지 레이아웃
 - 3개의 section을 구현하되 display:block; 나머지 display:none;
+  
   - bootstrap에 의한, 각 section들을 container로 감싸기
 - 각 section의 구성 #main, #qna, #result
   - h3
@@ -23,6 +24,7 @@
 ## main 꾸미기
 1. default.css, main.css(section별 css) 만들고, html에 링크 시키기
 2. default에서는 전체영향을 주는 꾸미기(body )등
+   
    1. body에서 배경색 주기
 3. main에서는 main섹션을 챙우기 위한 꾸미기
    1. #main의 id로 배경색 주기
@@ -50,7 +52,7 @@
 5. 반응형 기기에서도 예쁘게 보일려면 meta태그를 달아줘야한다.
    ```html
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    ```
+   ```
 6. img태그가 따라가는 div를 반응형 그대로 col-6으로 주면, 모바일화면에서 너무 작아진다.
    - 글자와 달리, 모바일에서는 `화면이 줄어듬에 따라, 그림은 커져야한다`
    - col-lg, md, sm을 점점 커지게 주자.
@@ -58,7 +60,7 @@
      ```html
      <div class="col-lg-6 col-md-8 col-sm-10 col-12 mx-auto">
      ```
-     
+   
 7. 폰트 변경후 폰트 크기 조절하기
    1. 구글폰트 검색 > language korean 선택
    2. 폰트 선택후, 원하는 스타일만 + 체크후,  우측상단의 view selected famailies
@@ -74,6 +76,7 @@
    2. 섹션별 css를 만드는 중이므로, `qna.css`를 만들고 html에 link를 걸어준다.
    3. #qna(id)로 셀렉터를 잡아 `display:none;`으로 걸어준다.
 2. 전환을 위한 `start.js`를 만들고, **js link는 body의 끝부분에 심어준다.**
+   
    - 어디서든 해도 되는데, body끝나고 하는 것을 권장한다.
 3. start.js으로 버튼에 함수 걸어주기
    1. const로 #main, #qna 2개의 섹션을 쿼리셀렉터로 잡아준다.
@@ -170,6 +173,7 @@
 2. btn의 `마진 패딩은 class로` 줘야하므로, appendChild하는 부부네서 classList.add에서 부트스트랩 class로 더해주자.
 3. 클릭가능한 btn들은 css로 `:hover, :focus`로 배경 + 글자색의 변화를 주자
 4. width를 80%로 조정하면 -> 왼쪽으로 치우치는데 -> `class로 mx-auto`를 주면 된다.
+   
    1. .qBox와 .answerList 둘다 `css에는 width: 80%;` + `html class/ js appendChild class`에  `mx-atuo`를 추가한다
 
 ### button에도 애니메이션 효과주기
@@ -242,3 +246,41 @@
    4. 정렬된 배열에서는, value(count)로 정렬되었으니, key값을 이용하면 매핑된 동물들의 그림을 추출할 수 있다?
 
    
+
+
+
+## calcResult 알고리즘 개선하기
+
+### 기존 qnaList 속 type을 값이 아닌 숫자로만 관리하기
+
+1. start.js의 pointArray 내부jsobject만 복사해서 data.js 맨위에 주석으로 붙여넣고, key에 해당하는 매핑 정수만 남겨두기(이름이랑)
+
+2. qnaList속 a속type들을 1개씩 ctrl+D이용해서 전체선택후 해당 숫자로 바꿔주기
+
+    - 나는 인텔리제이 ctrl+ shift + L을 이용해서 같은단어 전체선택 이용함
+
+    ![image-20220824174659254](https://raw.githubusercontent.com/is2js/screenshots/main/image-20220824174659254.png)
+
+
+
+### 빈배열 select가 아니라, 카운팅배열 select 12type을 index에 암묵적 매핑하여 사용
+
+1. select 전역변수를 빈 배열에서 카운팅배열로 바꾸기
+
+2. answerBtn 클릭리스너에 answerIdx를 저장하는 것이 아니라
+
+    1. 현재질문qIdx에서, 선택한답변answerIdx의 type으로 간 뒤, 각 번호를 select index에 매핑되었다고 가정하고 카운팅한다
+
+        ![image-20220824181210679](https://raw.githubusercontent.com/is2js/screenshots/main/image-20220824181210679.png)
+        ![image-20220824181225061](https://raw.githubusercontent.com/is2js/screenshots/main/image-20220824181225061.png)
+
+3. calcResult에 pointArray를 돌면서 type을 돌면서 일치하는 것만 카운팅하는 로직을 삭제하고, **카운팅배열에서 최대값의 인덱스만 가져오면 된다.**
+
+    ![image-20220824181820858](https://raw.githubusercontent.com/is2js/screenshots/main/image-20220824181820858.png)
+
+    ​	
+
+
+
+## calcResult로 받아낸 최다 type의 번호(index)를 이용하여 Result꾸미기
+
