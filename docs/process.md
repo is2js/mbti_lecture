@@ -449,33 +449,38 @@
 
 #### 결과페이지를 따로 빼서 그 페이지를 공유해야한다.
 
-1. static/`templates`폴더를 만든 뒤 `result-0.html`부터 만들어준다
+1. **공유를 위해서는 따로 결과페이지 + 결과값이 필요하다.**
+   1. `shareResult.html`, `shareResult.js`를 만들어주고, `result.css`는 재활용한다
 2. index.html에서
-   1. 카카오톡 sdk관련부분 빼고 head복붙
-      1. css는 default + result.css만 남긴다
-   2. body에서 result섹션만 복붙한다
+   1. head를 복사하되, 공유하기대신 참여하기버튼으로 바뀔 예정이니 카카오톡sdk부분은 빼준다
+   2. css는 default + result.css만 남긴다
+   3. body에서 result섹션만 복붙한다
+      1. 나는 css루트를 /static 으로 `/`루트부터 시작했지만, 경로가 바뀌면 상대주소도 `./` -> `../` 등으로 바꿔준다.
+3. **result.css**에서 #result 섹션은 display:none;으로 시작하므로 
+   - section을 **#shareResult로 id변경후, `result.css`에서는 display:none;제외 복붙해서 적용해준다**
 
-3. 나는 css루트를 /static 으로 `/`루트부터 시작했지만
-
-   - 만약 상대주소 `./`로 시작했따면 `../`상위폴더로 이동시키는 등 경로를 조절해준다.
-
-4. **result.css**에서 #result 섹션은 display:none;으로 시작하는데
-
-   - **#shareResult로 id변경후, `result.css`에서는 display:none;제외 복붙해서 적용해준다**
-
-   
-
-
+4. `share_kakao.js`에서 
+   - **공유하기를 누를 때, `image태그에 alt로 심어둔 type(결과값변수)`를 가져온다.**
+     - 기존 index.html 속 #resultImg(div)에서 **첫번째 요소 자식**을 가져오면 img태그이며 .alt로 접근할 수 있다.
+   - **공유하기시에는 카카오 web플랫폼에 등록된 배포주소 그대로를 기본url로 잡고 시작한다**
+5. **shareResult.html은 queryString으로 alt속 결과값변수가 넘어가도록 하자**
+   - **그리고 shareResult.html은 내부에서 window.onlaod = **에서 querystring값을 가져와 그것을 바탕으로 데이터를 뿌리게 한다
+     - querystring으로 넘어온 값을 받는 코드를 작성하고, 
+     - 그것을 바탕으로 요소들을 appendChild할 수 있게 **data.js**도 심어져있어야한다.
+6. **shareResult.js**에는 window.onload = function() { }에
+   1. url속 쿼리스트링을 data = {}; 객체(js object)에 담는 코드를 활용한다
+   2. 그 data객체를 바탕으로 **index.html 의 setResult코드를 가져와 요소들은 빈공간에 appendChild한다**
+7. **확인은 로컬서버 shareResult.html/`type=0`등으로 넘어왔따고 가정하고 그에 맞는 데이터가 잘 붙는지 확인한다.**
 
 #### 결과공유html with queryString은, 공유하기버튼이 아닌 나도 참여하기 버튼으로 변경
 
-1. `shareResult.html`의 공유하기버튼의 꾸미기용 kakao 클래스 대신 꾸미기용 goHome클래스로 교체하고
+1. `shareResult.html`의 공유하기버튼의 꾸미기용 **kakao 클래스 대신 꾸미기용 goHome클래스로 교체**하고
 
 2. result.css에서 .goHome으로 버튼을 꾸민다.
 
    1. kakao 클래스를 복붙해서 색깔만 변경한다
 
-3. **onclick을 moveHome()으로 걸어준 뒤, `shareResult.css`에 `window.location.href = /index.html`로 변경해준다**
+3. **onclick을 moveHome()으로 걸어준 뒤, `shareResult.js`에 `window.location.href = /index.html`로 변경해준다**
 
    - local에서는 url/index.html로 이동되지만, liveserver특성상 다르게 주소가 잡히는 것 같다
 
