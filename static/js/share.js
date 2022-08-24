@@ -7,7 +7,7 @@ function shareKakao() {
   const shareTitle = '십이간지 연애유형 결과'
   const shareDesc = infoList[typeInAlt].name;
   const shareImageURL = url + 'images/image-' + typeInAlt + '.png';
-  const shareURL = url + 'shareResult.html?type' + encodeURIComponent(typeInAlt);
+  const shareURL = url + 'shareResult.html?type=' + encodeURIComponent(typeInAlt);
 
 
 
