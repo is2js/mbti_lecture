@@ -4,7 +4,7 @@ const result = document.querySelector("#result");
 const statusBar = document.querySelector(".statusBar");
 const endPoint = qnaList.length;
 // const select = [];
-const select = [0,0,0,0,0,0,0,0,0,0,0,0];
+const select = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 
 function calcResult() {
@@ -37,7 +37,6 @@ function goResult() {
     qna.style.WebkitAnimation = "fadeOut 0.5s";
     qna.style.animation = "fadeOut 0.5s";
 
-    // qna.style.display = "block";
     setTimeout(() => {
         result.style.WebkitAnimation = "fadeIn 0.5s";
         result.style.animation = "fadeIn 0.5s";
@@ -46,6 +45,7 @@ function goResult() {
             result.style.display = "block";
         }, 240);
     }, 240);
+
 
     setResult(calcResult())
 }

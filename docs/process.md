@@ -399,19 +399,68 @@
 
 ## 카톡 공유 구현하기
 
+### sdk부터 공유버튼 메서드 구현까지
+
 1. 카카오 디벨로퍼 > 내 어플리케이션 추가
+
 2. 문서 > 메세지 > 문서보기
+
 3.  카카오톡 공유: JavaScript > 직접 만든 버튼 사용하기
+
 4. sample코드를 가지고 와 `share.js`를 만들어 복붙해준다.
+
 5. 시작하기 > javascript를 통해 js 코드를 head에 심어주기
+
    1. sdk 심기
    2. 초기화코드를 script태그로 감싸서 sdk밑에 심기
    3. 초기화에서 앱키는 내 어플리케이션에서 javavscript key가져와 복붙하기
+
 6. `share.js`는 body맨 끝에 시작시 열리도록 심어주기
+
    - 해당 share코드는 btn의 onclick이  되도록 함수화 할 것이다. 
    - 함수를 쓸 수 있게 미리 정의해놓는 과정
+
 7. **share.js 수정하기**
+
    1. 복붙코드 들여쓰기 후 shareKakao 메서드로 정의하기
    2. index.html의 공유하기버튼에 onclick줘서 해당 메서드 걸어주기
-   3. 
 
+8. 실행시켜보면 **작동은 잘하지만 잘못된 요청이라 뜬다.**
+
+   - 웹 플랫폼 등록까지 해줘야한다.
+
+   - **시작하기에 마지막 단계다**
+
+     ### 설정하기
+
+     JavaScript SDK를 통해 카카오 API를 호출하려면 [내 애플리케이션] > [플랫폼] > [Web]에 도메인을 등록해야 합니다. 자세한 안내는 [플랫폼 등록](https://developers.kakao.com/docs/latest/ko/getting-started/app#platform)을 참고합니다.
+
+9. 내 어플리케이션 > 선택 > **중간에 Web플랫폼 등록**
+
+   1. **도메인을 가진 사이트만 등록 가능하다.**
+
+   2. netify에 등록된 도메인은 적용가능하다.
+
+      ![image-20220824230446337](https://raw.githubusercontent.com/is3js/screenshots/main/image-20220824230446337.png)
+
+
+
+### url공유가 아닌 결과페이지 상태그대로 공유하기 위한 작업
+
+#### 결과페이지를 따로 빼서 그 페이지를 공유해야한다.
+
+1. static/`templates`폴더를 만든 뒤 `result-0.html`부터 만들어준다
+2. index.html에서
+   1. 카카오톡 sdk관련부분 빼고 head복붙
+      1. css는 default + result.css만 남긴다
+   2. body에서 result섹션만 복붙한다
+
+3. 나는 css루트를 /static 으로 `/`루트부터 시작했지만
+
+   - 만약 상대주소 `./`로 시작했따면 `../`상위폴더로 이동시키는 등 경로를 조절해준다.
+
+4. **result.css**에서 #result 섹션은 display:none;으로 시작하는데
+
+   - **#shareResult로 id변경후, `result.css`에서는 display:none;제외 복붙해서 적용해준다**
+
+   

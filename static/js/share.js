@@ -1,4 +1,18 @@
 function shareKakao() {
+  let resultImg = document.querySelector('#resultImg');
+  let typeInAlt = resultImg.firstElementChild.alt;
+
+  const url = 'https://dolbum-love-type.netlify.app/'
+
+  const shareTitle = '십이간지 연애유형 결과'
+  const shareDesc = infoList[typeInAlt].name;
+  const shareImage = url + 'images/image-' + typeInAlt + '.png';
+  const shareURL = url + 'shareResult.html?type' + encodeURIComponent(typeInAlt);
+
+
+
+
+
   Kakao.Share.sendDefault({
     objectType: 'feed',
     content: {
