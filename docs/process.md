@@ -394,3 +394,24 @@
 ### 배포된 주소를 다시 meta op:url에 넣어주기 with https
 
 ![image-20220824194921186](https://raw.githubusercontent.com/is2js/screenshots/main/image-20220824194921186.png)
+
+
+
+## 카톡 공유 구현하기
+
+1. 카카오 디벨로퍼 > 내 어플리케이션 추가
+2. 문서 > 메세지 > 문서보기
+3.  카카오톡 공유: JavaScript > 직접 만든 버튼 사용하기
+4. sample코드를 가지고 와 `share.js`를 만들어 복붙해준다.
+5. 시작하기 > javascript를 통해 js 코드를 head에 심어주기
+   1. sdk 심기
+   2. 초기화코드를 script태그로 감싸서 sdk밑에 심기
+   3. 초기화에서 앱키는 내 어플리케이션에서 javavscript key가져와 복붙하기
+6. `share.js`는 body맨 끝에 시작시 열리도록 심어주기
+   - 해당 share코드는 btn의 onclick이  되도록 함수화 할 것이다. 
+   - 함수를 쓸 수 있게 미리 정의해놓는 과정
+7. **share.js 수정하기**
+   1. 복붙코드 들여쓰기 후 shareKakao 메서드로 정의하기
+   2. index.html의 공유하기버튼에 onclick줘서 해당 메서드 걸어주기
+   3. 
+

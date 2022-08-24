@@ -31,6 +31,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Sunflower:wght@700&display=swap"
           rel="stylesheet">
+    <!-- kakao share sdk  -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script>
+        Kakao.init('3ff060366e2de41cac5a9b86661942d9');
+        Kakao.isInitialized();
+    </script>
 </head>
 <body>
 <div class="container">
@@ -63,11 +69,12 @@
             나만의 MBTI 사이트입니다.! <br>
             아래 시작하기 버튼을 눌러 시작해 주십시오.
         </p>
-        <button type="button" class="kakao mt-3 px-4 py-2" >공유하기</button>
+        <button type="button" class="kakao mt-3 px-4 py-2" onclick="shareKakao()">공유하기</button>
 
     </section>
 </div>
 <script src="/static/js/data.js"></script>
 <script src="/static/js/start.js"></script>
+<script src="/static/js/share.js"></script>
 </body>
 </html>
